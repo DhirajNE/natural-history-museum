@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural History Museum - Discover the Past, Explore the Future</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2C3E50;
+            --secondary-color: #E67E22;
+            --accent-color: #F39C12;
+            --dark-overlay: rgba(44, 62, 80, 0.8);
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .hero-section {
+            background: linear-gradient(var(--dark-overlay), var(--dark-overlay)), 
+                        url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .museum-logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+
+        .exhibit-card {
+            border: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .exhibit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .collection-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .collection-item:hover {
+            transform: scale(1.05);
+        }
+
+        .thursday-special {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .thursday-special h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .opening-hours {
+            background: #f8f9fa;
+        }
+
+        .hours-table {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .thursday-highlight {
+            background: var(--accent-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        .membership-section {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+        }
+
+        .membership-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            height: 100%;
+        }
+
+        .contact-section {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .contact-form {
+            background: white;
+            color: #333;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .btn-museum {
+            background: var(--secondary-color);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-museum:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .navbar {
+            background: rgba(44, 62, 80, 0.95) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .stats-section {
+            background: var(--primary-color);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 70vh;
+            }
+            
+            .museum-logo {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .thursday-special h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-museum"></i> Natural History Museum
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#collections">Collections</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#exhibits">Exhibits</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#visit">Visit</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#membership">Membership</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="museum-logo mb-4">
+                        <i class="fas fa-museum"></i>
+                    </div>
+                    <h1 class="display-4 mb-4">Natural History Museum</h1>
+                    <p class="lead mb-4">Located on University Campus in Cardiff, Wales. Discover millions of years of Earth's history through our incredible collections of fossils, minerals, and specimens from around the world.</p>
+                    <div class="alert alert-warning text-dark mb-4">
+                        <strong><i class="fas fa-moon"></i> NEW: History After Dark</strong><br>
+                        Now open Thursday evenings until 11:00 PM for an exclusive after-hours experience!
+                    </div>
+                    <a href="#collections" class="btn btn-museum btn-lg me-3">Explore Collections</a>
+                    <a href="#membership" class="btn btn-outline-light btn-lg">Become a Member</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-item">
+                        <div class="stat-number">50,000+</div>
+                        <p>Specimens</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-item">
+                        <div class="stat-number">150+</div>
+                        <p>Years of History</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-item">
+                        <div class="stat-number">100,000+</div>
+                        <p>Annual Visitors</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <p>Exhibition Halls</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Permanent Collections -->
+    <section id="collections" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Permanent Collections</h2>
+            <div class="collection-grid">
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Dinosaur Fossils" class="img-fluid">
+                    <div class="p-3">
+                        <h4>Dinosaur Gallery</h4>
+                        <p>Explore the age of dinosaurs with our extensive collection of fossils, including a complete T-Rex skeleton and rare specimens from around the world.</p>
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1596265371388-43edbaadab94?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mineral Collection" class="img-fluid">
+                    <div class="p-3">
+                        <h4>Mineral & Gem Hall</h4>
+                        <p>Discover the Earth's treasures with our stunning collection of minerals, crystals, and precious stones from every continent.</p>
+                    </div>
+                </div>
+                <div class="collection-item">
+                    <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Wildlife Specimens" class="img-fluid">
+                    <div class="p-3">
+                        <h4>Wildlife & Evolution</h4>
+                        <p>Journey through evolution with our comprehensive collection of animal specimens, from tiny insects to massive mammals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Exhibits -->
+    <section id="exhibits" class="section-padding" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Current Exhibits</h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card exhibit-card">
+                        <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Ice Age Mammals">
+                        <div class="card-body">
+                            <h5 class="card-title">Ice Age Mammals</h5>
+                            <p class="card-text">Step back 20,000 years and meet the giants of the Ice Age. Featuring woolly mammoths, saber-toothed cats, and giant ground sloths.</p>
+                            <p class="text-muted"><i class="fas fa-calendar"></i> Running until September 2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card exhibit-card">
+                        <img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Ocean Depths">
+                        <div class="card-body">
+                            <h5 class="card-title">Ocean Depths: Life in the Abyss</h5>
+                            <p class="card-text">Explore the mysterious world of deep-sea creatures and discover how life thrives in Earth's most extreme environments.</p>
+                            <p class="text-muted"><i class="fas fa-calendar"></i> Running until November 2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thursday Special -->
+    <section class="thursday-special">
+        <div class="container">
+            <h2><i class="fas fa-moon"></i> History After Dark</h2>
+            <p class="lead">Experience the museum like never before with our exclusive Thursday evening openings</p>
+            <p class="fs-4">Open until 11:00 PM every Thursday</p>
+            <p>Join us for guided tours, special talks, and a unique after-hours atmosphere</p>
+            <a href="#contact" class="btn btn-outline-light btn-lg mt-3">Book Your Evening Visit</a>
+        </div>
+    </section>
+
+    <!-- Summer Programs -->
+    <section id="events" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Summer Programs for Kids</h2>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-search fa-3x text-primary mb-3"></i>
+                            <h5 class="card-title">Junior Paleontologist</h5>
+                            <p class="card-text">Ages 6-10. Dig for fossils, learn about dinosaurs, and create your own paleontological discoveries.</p>
+                            <p class="text-muted">July 1-31, Daily 10:00 AM - 12:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-microscope fa-3x text-success mb-3"></i>
+                            <h5 class="card-title">Nature Detectives</h5>
+                            <p class="card-text">Ages 8-12. Investigate the natural world through hands-on experiments and outdoor exploration.</p>
+                            <p class="text-muted">August 1-31, Daily 2:00 PM - 4:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-paint-brush fa-3x text-warning mb-3"></i>
+                            <h5 class="card-title">Art & Science</h5>
+                            <p class="card-text">Ages 10-14. Combine creativity with scientific discovery through art projects inspired by nature.</p>
+                            <p class="text-muted">July 15 - August 15, Tuesdays & Thursdays 1:00 PM - 3:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tours and Talks -->
+    <section class="section-padding" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Tours & Talks</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-users"></i> Guided Tours</h5>
+                            <p>Daily at 11:00 AM, 1:00 PM, and 3:00 PM. Expert-led tours of our permanent collections.</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-wheelchair"></i> Accessible Tours</h5>
+                            <p>Specially designed tours for visitors with mobility or sensory needs. Saturdays at 10:00 AM.</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-microphone"></i> Curator Talks</h5>
+                            <p>Monthly lectures by our curators. First Friday of each month at 7:00 PM.</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h5><i class="fas fa-moon"></i> After Dark Tours</h5>
+                            <p>Exclusive evening tours every Thursday at 8:00 PM. Limited to 20 participants.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opening Hours -->
+    <section id="visit" class="opening-hours section-padding">
+        <div class="container">
+            <h2 class="section-title">Opening Hours</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="hours-table">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Monday - Wednesday</strong></td>
+                                    <td>9:00 AM - 5:00 PM</td>
+                                </tr>
+                                <tr class="thursday-highlight">
+                                    <td><strong>Thursday - History After Dark</strong></td>
+                                    <td>9:00 AM - 11:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Friday</strong></td>
+                                    <td>9:00 AM - 6:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Saturday</strong></td>
+                                    <td>10:00 AM - 6:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sunday</strong></td>
+                                    <td>12:00 PM - 5:00 PM</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center mt-4">
+                            <h5>Admission</h5>
+                            <p>Adults: £15 | Students: £10 | Children (under 16): Free | Members: Free</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Find Us -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title">How to Find Us</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5><i class="fas fa-map-marker-alt"></i> Address</h5>
+                            <p>Natural History Museum<br>
+                            University Campus<br>
+                            Science Quarter, Building 12<br>
+                            Cardiff, Wales CF10 3AT</p>
+                            
+                            <h5><i class="fas fa-bus"></i> Public Transport</h5>
+                            <p>Bus routes 17, 25, and 34 stop directly outside the museum.<br>
+                            Cardiff Central Station is a 15-minute walk.</p>
+                            
+                            <h5><i class="fas fa-car"></i> Parking</h5>
+                            <p>Free parking available in the University Campus car park.<br>
+                            Disabled parking spaces available near the main entrance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5><i class="fas fa-phone"></i> Contact Information</h5>
+                            <p>Phone: +44 (0) 29 2087 4000<br>
+                            Email: info@naturalhistorymuseum.ac.uk<br>
+                            Website: www.naturalhistorymuseum.ac.uk</p>
+                            
+                            <h5><i class="fas fa-clock"></i> Planning Your Visit</h5>
+                            <p>Allow 2-3 hours for a full visit. Audio guides available in English, Welsh, and Spanish. Free Wi-Fi throughout the museum.</p>
+                            
+                            <h5><i class="fas fa-utensils"></i> Facilities</h5>
+                            <p>Museum café open daily. Gift shop with unique souvenirs. Cloakroom and baby changing facilities available.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership -->
+    <section id="membership" class="membership-section section-padding">
+        <div class="container">
+            <h2 class="section-title">Become a Member</h2>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="membership-card">
+                        <h4>Individual</h4>
+                        <div class="display-6 text-primary mb-3">£35/year</div>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Unlimited museum access</li>
+                            <li><i class="fas fa-check text-success"></i> Free special exhibitions</li>
+                            <li><i class="fas fa-check text-success"></i> 10% shop discount</li>
+                            <li><i class="fas fa-check text-success"></i> Quarterly newsletter</li>
+                        </ul>
+                        <button class="btn btn-museum">Join Now</button>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="membership-card">
+                        <h4>Family</h4>
+                        <div class="display-6 text-primary mb-3">£65/year</div>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> All Individual benefits</li>
+                            <li><i class="fas fa-check text-success"></i> Up to 2 adults + 4 children</li>
+                            <li><i class="fas fa-check text-success"></i> Priority event booking</li>
+                            <li><i class="fas fa-check text-success"></i> Free birthday party venue</li>
+                        </ul>
+                        <button class="btn btn-museum">Join Now</button>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="membership-card">
+                        <h4>Patron</h4>
+                        <div class="display-6 text-primary mb-3">£150/year</div>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> All Family benefits</li>
+                            <li><i class="fas fa-check text-success"></i> Exclusive curator events</li>
+                            <li><i class="fas fa-check text-success"></i> Behind-the-scenes tours</li>
+                            <li><i class="fas fa-check text-success"></i> Annual patron dinner</li>
+                        </ul>
+                        <button class="btn btn-museum">Join Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="contact-section section-padding">
+        <div class="container">
+            <h2 class="section-title text-white">Contact Us</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <select class="form-select" id="subject" required>
+                                    <option value="">Choose...</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="membership">Membership</option>
+                                    <option value="events">Events & Programs</option>
+                                    <option value="group">Group Visits</option>
+                                    <option value="thursday">Thursday Evening Tours</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-museum btn-lg">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 mb-4">
+                    <h5><i class="fas fa-museum"></i> Natural History Museum</h5>
+                    <p>Discover the wonders of our natural world through our extensive collections and engaging exhibitions.</p>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#collections" class="text-white-50">Collections</a></li>
+                        <li><a href="#exhibits" class="text-white-50">Current Exhibits</a></li>
+                        <li><a href="#events" class="text-white-50">Events</a></li>
+                        <li><a href="#membership" class="text-white-50">Membership</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5>Visit Us</h5>
+                    <p class="text-white-50">University Campus<br>Cardiff, Wales CF10 3AT<br>+44 (0) 29 2087 4000</p>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white-50 me-3"><i class="fab fa-facebook-f fa-2x"></i></a>
+                        <a href="#" class="text-white-50 me-3"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-white-50 me-3"><i class="fab fa-instagram fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2025 Natural History Museum. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(44, 62, 80, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(44, 62, 80, 0.95)';
+            }
+        });
+
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections for animation
+        document.querySelectorAll('.card, .collection-item, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
